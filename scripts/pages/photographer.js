@@ -31,9 +31,6 @@ async function getData(target) {
                 }
                 
             }
-            // console.log("Medias :", mediasArray);
-
-            // const mediasPhotographer = mediasArray.filter(media => media.photographerId !== idPhotographer);
             return mediasArray;
         }
 
@@ -54,7 +51,6 @@ async function displayDataMedias(mediasArray, photographer){
     })
 }
 
-// console.log(getData("media"));
 
 
 async function displayDataPhotographer(photographer) {

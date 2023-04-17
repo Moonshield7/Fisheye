@@ -1,3 +1,9 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #contact_modal {
     display: none;
 }
@@ -5,7 +11,66 @@
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
-    margin: 0 100px;
+    width: 990px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: 0 100px; */
+}
+
+.photograph-header article {
+    padding: 50px 70px;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    grid-template-rows: repeat(3, 55px);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    align-items: center;
+    justify-items: center;
+}
+
+.photograph-header article h2 {
+    color: #D3573C;
+    font-size: 64px;
+    font-weight: 300;
+    line-height: 110%;
+    grid-column: 1;
+    grid-row: 1;
+    align-self:self-end;
+    justify-self: left;
+    width:300%
+}
+
+.photograph-header article h3 {
+    color: #901C1C;
+    font-size: 24px;
+    font-weight: 400;
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: left;
+}
+
+.photograph-header article h4 {
+    color: #000000;
+    font-size: 18px;  
+    font-weight: 400;
+    line-height: 200%;
+    grid-column: 1;
+    grid-row: 3;
+    align-self: self-start;
+    justify-self: left;
+}
+
+.photograph-header article img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: right;
 }
 
 .contact_button {
@@ -19,6 +84,61 @@
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.encart {
+    width: 375px;
+    height: 90px;
+    background-color: #DB8876;
+    border-radius: 5px;
+    position: fixed;
+    left:68vw;
+    bottom: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.encart h5 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 30px;
+}
+
+.gallery {
+    justify-content: center;
+    align-self: center;
+    margin-top: 60px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 45px;
+    grid-row-gap: 30px;
+}
+
+.gallery article img, .gallery article video {
+    width: 300px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+    align-self: center;
+}
+
+.gallery article section {
+    display: flex;
+    justify-content: space-between;
+    color: #901C1C;
+    font-size: 18px;
+    font-weight: 400;
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.like-amount {
+    width: 20%;
 }
 
 .modal {

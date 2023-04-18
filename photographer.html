@@ -9,6 +9,7 @@
     <title>Fisheye - photographe </title>
   </head>
   <body>
+    <div class="background" aria-hidden="true">ti</div>
     <header>
       <a href="index.html" aria-label="Fisheye Home page"><img src="assets/images/logo.png" class="logo" alt=""/></a>
     </header>
@@ -19,17 +20,35 @@
       </div>
     </main>
     <div id="contact_modal">
-			<div class="modal">
+			<div class="modal" role="dialog" aria-describedby="modal_title">
 				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <section id="modal_title" tabindex="0">
+            <h2>Contactez-moi</h2>
+          </section>
+          <img src="assets/icons/close.svg" onclick="closeModal()" id="close-button" tabindex="0" alt="Bouton de fermeture de la modale"/>
         </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
+				<form id="formulaire">
+					<section class="form-section">
+						<label for="firstname">Prénom</label>
+						<input type="text" id="firstname" name="firstname"/>
+            <p class="error" tabindex="0"></p>
+					</section>
+          <section class="form-section">
+						<label for="lastname">Nom</label>
+						<input type="text" id="lastname" name="lastname"/>
+            <p class="error" tabindex="0"></p>
+					</section>
+          <section class="form-section">
+						<label for="email">Email</label>
+						<input type="text" id="email" name="email"/>
+            <p class="error" tabindex="0"></p>
+					</section>
+          <section class="form-section">
+						<label for="message">Votre message</label>
+						<textarea id="message" name="message"></textarea>
+            <p class="error" tabindex="0"></p>
+					</section>
+          <button class="contact_button" id="submit">Envoyer</button>
 				</form>
 			</div>
 		</div>

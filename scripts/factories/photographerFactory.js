@@ -6,14 +6,14 @@ function photographerFactory(data, page) {
     // Photo de profil
     const img = document.createElement( 'img' );
     img.setAttribute("src", picture);
-    img.setAttribute("alt", "");
+    img.setAttribute("alt", `Portrait de ${name}`);
     // Nom du photographe
     const h2 = document.createElement( 'h2' );
     h2.textContent = name;
     // Localisation
     const h3 = document.createElement('h3')
     h3.textContent = `${city}, ${country}`
-    h3.setAttribute("aria-label", `Localisation {city}, ${country}`);
+    h3.setAttribute("aria-label", `Localisation ${city}, ${country}`);
     h3.setAttribute('tabindex', "0");
     // Slogan
     const h4 = document.createElement('h4');
@@ -25,6 +25,9 @@ function photographerFactory(data, page) {
     h5.textContent = `${price}€/jour`;
     h5.setAttribute("aria-label", `Prix : ${price}€ par jour`);
     h5.setAttribute('tabindex', "0");
+    // Nom du photographe pour la modale
+    const h2bis = document.createElement( 'h2' );
+    h2bis.textContent = name;
 
     if(page === "index"){
         function getUserCardDOM() {
@@ -61,8 +64,11 @@ function photographerFactory(data, page) {
             const nombreLikes = document.createElement('h5');
             nombreLikes.textContent = "297 081 ♥";
             nombreLikes.setAttribute("aria-label", `Nombre de j'aime : ${nombreLikes}`);
+            h2.setAttribute("tabindex", "0");
             img.setAttribute("tabindex", "0");
             h5.setAttribute("tabindex", "-1");
+
+            const modalTitle = document.getElementById("modal_title");
             
             encart.appendChild(nombreLikes);
             encart.appendChild(h5);
@@ -72,6 +78,7 @@ function photographerFactory(data, page) {
             article.appendChild(button);
             article.appendChild(img);
             article.appendChild(encart);
+            modalTitle.appendChild(h2bis);
             return (article);
         }
     }

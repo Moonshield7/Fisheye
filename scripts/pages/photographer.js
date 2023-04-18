@@ -62,6 +62,9 @@ async function displayDataPhotographer(photographer) {
 }
 
 async function init(){
+    const logo = document.querySelector(".logo");
+    logo.focus();
+    
     const photographer = await getData("photographer");
     displayDataPhotographer(photographer);
 

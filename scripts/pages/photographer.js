@@ -42,10 +42,10 @@ async function displayDataMedias(mediasArray){
 }
 
 // Affichage des informations du photographe
-async function displayDataPhotographer(photographer) {
+async function displayDataPhotographer(photographer, likeAmount) {
     const photographerHeader = document.querySelector('.photograph-header')
 
-    const photographerModel = photographerFactory(photographer, "gallery");
+    const photographerModel = photographerFactory(photographer, "gallery", likeAmount);
     const photographerDOM = photographerModel.getPhotographHeader();
     photographerHeader.appendChild(photographerDOM);
 }
@@ -120,23 +120,60 @@ async function init(){
     // Logo accessible via la navigation clavier
     const logo = document.querySelector(".logo");
     logo.focus();
-    
-    // Affichage des données du photographe sélectionné
+
+    // Constantes à utiliser :
     const photographer = await getData("photographer");
-    displayDataPhotographer(photographer);
+    const medias = await getData("media");
+        
+    // Nombre de likes
+    let likeAmount = 0;
+    medias.forEach((media) => {
+    likeAmount += media.likes;
+    })
 
     // Affichage de la gallerie des médias du photographe sélectionné
-    const medias = await getData("media");
     displayDataMedias(medias, photographer);
+
+    // Ecouteur d'évènement pour l'affichage dynamique de likes
+    const heartButtons = document.querySelectorAll('.gallery-like');
+    heartButtons.forEach(heart => {
+        let isLiked = 0;
+        heart.addEventListener('click', () => {
+            if(isLiked === 0){
+                isLiked += 1;
+                likeAmount +=1;
+                heart.style.color = "#df2783";
+                let currentLikes = parseInt(heart.parentElement.firstChild.textContent)
+                currentLikes += 1; 
+                heart.parentElement.firstChild.textContent = currentLikes
+            } else {
+                isLiked = 0;
+                likeAmount -=1;
+                heart.style.color = "";
+                let currentLikes = parseInt(heart.parentElement.firstChild.textContent)
+                currentLikes -= 1; 
+                heart.parentElement.firstChild.textContent = currentLikes
+            }
+            const totalLikes = document.querySelector('.total-likes');
+            totalLikes.textContent = likeAmount;
+        })
+
+    })
+
+    // Affichage des données du photographe sélectionné
+    displayDataPhotographer(photographer, likeAmount);
+
+
     
     // Affichage de la lightbox lorsque l'on clique sur l'un des médias de la gallerie
     const clickableArray = document.querySelectorAll('.clickable');
     clickableArray.forEach(picture => {
-        picture.addEventListener('click', ()=> {
+        picture.addEventListener('click', () => {
             openLightbox();
             displayLightboxMedia(medias, picture.id)
         })
     })
+
 
 }
 

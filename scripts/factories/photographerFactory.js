@@ -1,4 +1,4 @@
-function photographerFactory(data, page) {
+function photographerFactory(data, page, likeAmount) {
     const { name, portrait, city, country, tagline, price, id } = data;
 
     const picture = `assets/photographers/${portrait}`;
@@ -61,16 +61,26 @@ function photographerFactory(data, page) {
             const encart = document.createElement('div');
             encart.setAttribute('class', 'encart');
             encart.setAttribute("tabindex", "0");
+
+            //nb like total
+            const likesContainer = document.createElement('div');
+            const heartIcon = document.createElement('i');  
+            heartIcon.setAttribute('class', 'fa-solid fa-heart gallery-like');
+
             const nombreLikes = document.createElement('h5');
-            nombreLikes.textContent = "297 081 ♥";
-            nombreLikes.setAttribute("aria-label", `Nombre de j'aime : ${nombreLikes}`);
+            nombreLikes.innerText = `${likeAmount}`;
+            nombreLikes.setAttribute("aria-label", `Nombre de j'aime : ${likeAmount}`);
+            nombreLikes.classList.add("total-likes")
+
             h2.setAttribute("tabindex", "0");
             img.setAttribute("tabindex", "0");
             h5.setAttribute("tabindex", "-1");
 
             const modalTitle = document.getElementById("modal_title");
             
-            encart.appendChild(nombreLikes);
+            encart.appendChild(likesContainer);
+            likesContainer.appendChild(nombreLikes)
+            likesContainer.appendChild(heartIcon)
             encart.appendChild(h5);
             article.appendChild(h2);
             article.appendChild(h3);
@@ -81,7 +91,11 @@ function photographerFactory(data, page) {
             modalTitle.appendChild(h2bis);
             return (article);
         }
+
+        // test nombre de like
+
     }
+
 
     return { name, picture, getUserCardDOM, getPhotographHeader }
 }

@@ -13,15 +13,21 @@ function mediaFactory(data, page){
         pictureText.setAttribute("class", "picture-text");
             // Titre de l'image
         const pictureName = document.createElement('h3');
+        pictureName.classList.add = "picture-title"
         pictureName.textContent = `${title}`;
         pictureName.setAttribute("tabindex", "0");
         
             // Nombre de likes de l'image
+        const likesContainer = document.createElement('div');
+        likesContainer.setAttribute("class", "like-amount");
+        const heartIcon = document.createElement('i')
+        heartIcon.setAttribute('class', 'fa-solid fa-heart gallery-like');
+        heartIcon.setAttribute("tabindex", "0");
         const pictureLikes = document.createElement('h3');
-        pictureLikes.textContent = `${likes} ♥`;
+        pictureLikes.innerHTML = `${likes}`;
         pictureLikes.setAttribute("tabindex", "0");
         pictureLikes.setAttribute("aria-label", `${likes} likes - icône coeur`);
-        pictureLikes.setAttribute("class", "like-amount");
+        
     
         if(page === "gallery") {
             // Fonction qui permet d'afficher la gallerie
@@ -49,7 +55,9 @@ function mediaFactory(data, page){
             
                 article.appendChild(pictureText);
                 pictureText.appendChild(pictureName);
-                pictureText.appendChild(pictureLikes);
+                pictureText.appendChild(likesContainer);
+                likesContainer.appendChild(pictureLikes);
+                likesContainer.appendChild(heartIcon);
             
                 return article;
             }

@@ -102,6 +102,16 @@ main {
     align-items: center;
 }
 
+.encart div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.encart i {
+    margin-left: 5px;
+    font-size: 22px;
+}
+
 .encart h5 {
     font-size: 24px;
     font-weight: 500;
@@ -141,9 +151,25 @@ main {
     grid-row: 2;
 }
 
-.like-amount {
-    width: 16%;
+.picture-title{
+    width: 75%;
 }
+
+.like-amount {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.like-amount i {
+    margin-left: 5px;
+}
+
+.like-amount i:hover {
+    cursor: pointer;
+}
+
 
 .modal {
     border-radius: 5px;

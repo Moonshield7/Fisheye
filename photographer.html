@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <!-- Ajout de fontawesome-->
+    <script src="https://kit.fontawesome.com/6121bb2f79.js" crossorigin="anonymous"></script>
     <title>Fisheye - photographe </title>
   </head>
   <body>
@@ -52,11 +54,18 @@
 				</form>
 			</div>
 		</div>
+    <div id="lightbox_modal" role="dialog" aria-label="Image agrandie">
+      <header onclick="closeModal()" id="lightbox_close-button" class="arrow" tabindex="0" aria-label="Fermer la fenêtre">
+        x
+      </header>
+
+    </div>
 
     
     <script src="/scripts/factories/mediaFactory.js"></script>
     <script src="/scripts/factories/photographerFactory.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
+    <script src="/scripts/utils/lightbox.js"></script>
     <script src="/scripts/pages/photographer.js"></script>
   </body>
 </html>

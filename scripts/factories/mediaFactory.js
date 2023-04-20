@@ -1,4 +1,4 @@
-function mediaFactory(data){
+function mediaFactory(data, page){
     const {id, photographerId, title, image, video, likes, date, price} = data;
 
         //Récupération des url des photos et vidéos
@@ -8,9 +8,6 @@ function mediaFactory(data){
         // Création des éléments du DOM
             // Container : article
         const article = document.createElement('article');
-            // Lien qui contient l'image clickable
-        const imageLink = document.createElement('a');
-        imageLink.setAttribute("aria-label", `${title}`);
             // Section de texte sous l'image
         const pictureText = document.createElement('section')
         pictureText.setAttribute("class", "picture-text");
@@ -26,32 +23,91 @@ function mediaFactory(data){
         pictureLikes.setAttribute("aria-label", `${likes} likes - icône coeur`);
         pictureLikes.setAttribute("class", "like-amount");
     
-        // Fonction qui permet d'afficher la gallerie
-        function getGallery() {
-            article.appendChild(imageLink);
-            // Si l'image est une vidéo, on récupère une miniature
-            if(data.video){
-                const videoContent = document.createElement('video');
-                videoContent.setAttribute("width", "300");
-                videoContent.setAttribute("height", "250");
-                videoContent.innerHTML = `<source src="${videoPathUrl}#t=0.1" type="video/mp4">`;
-                imageLink.appendChild(videoContent);
-                imageLink.href = videoPathUrl;
-            } 
-            // Si l'image est une photo :
-            if(data.image) {
-                const pictureContent = document.createElement('img');
-                pictureContent.src = imagePathUrl;
-                imageLink.appendChild(pictureContent);
-                imageLink.href = imagePathUrl;
+        if(page === "gallery") {
+            // Fonction qui permet d'afficher la gallerie
+            function getGallery() {
+                // Si l'image est une vidéo, on récupère une miniature
+                if(data.video){
+                    const videoContent = document.createElement('video');
+                    videoContent.setAttribute("width", "300");
+                    videoContent.setAttribute("height", "250");
+                    videoContent.setAttribute("tabindex", "0");
+                    videoContent.classList.add("clickable");
+                    videoContent.setAttribute("id", id);
+                    videoContent.innerHTML = `<source src="${videoPathUrl}#t=0.1" type="video/mp4">`;
+                    article.appendChild(videoContent);
+                } 
+                // Si l'image est une photo :
+                if(data.image) {
+                    const pictureContent = document.createElement('img');
+                    pictureContent.src = imagePathUrl;
+                    pictureContent.classList.add("clickable");
+                    pictureContent.setAttribute("id", id);
+                    pictureContent.setAttribute("tabindex", 0);
+                    article.appendChild(pictureContent);
+                }
+            
+                article.appendChild(pictureText);
+                pictureText.appendChild(pictureName);
+                pictureText.appendChild(pictureLikes);
+            
+                return article;
             }
-    
-            article.appendChild(pictureText);
-            pictureText.appendChild(pictureName);
-            pictureText.appendChild(pictureLikes);
-    
-            return article;
         }
+
+        if(page === "lightbox") {
+            // Fonction qui permet d'afficher la lightbox
+            function getLightboxPicture(){
+                // Récupération de la section dans laquelle les éléments apparaîtront
+                const principalSection = document.createElement('section');
+                // Création de la flèche gauche
+                const arrowLeft = document.createElement('div');
+                arrowLeft.classList.add("arrow");
+                arrowLeft.innerText = "<";
+                arrowLeft.setAttribute("id", "left");
+                arrowLeft.setAttribute("aria-label", "Image précédente");
+                arrowLeft.setAttribute("tabindex", "0");
+
+                // Création de la flèche droite
+                const arrowRight = document.createElement('div');
+                arrowRight.classList.add("arrow");
+                arrowRight.innerText = ">";
+                arrowRight.setAttribute("id", "right");
+                arrowRight.setAttribute("aria-label", "Image suivante");
+                arrowRight.setAttribute("tabindex", "0");
+                
+                // Ajout des éléments dans la lightbox
+                article.appendChild(arrowLeft);
+                article.appendChild(principalSection);
+                article.appendChild(arrowRight);
     
-        return { getGallery };
+                // Si l'image est une vidéo :
+                if(data.video){
+                    const videoContent = document.createElement('video');
+                    videoContent.setAttribute("width", "1050");
+                    videoContent.setAttribute("height", "900");
+                    videoContent.setAttribute("controls", "yes")
+                    videoContent.innerHTML = `<source src="${videoPathUrl}" type="video/mp4">`;
+                    videoContent.setAttribute("aria-label", title)
+                    principalSection.appendChild(videoContent);
+                } 
+                // Si l'image est une photo :
+                if(data.image) {
+                    const pictureContent = document.createElement('img');
+                    pictureContent.src = imagePathUrl;
+                    pictureContent.setAttribute("attr", title)
+                    pictureContent.setAttribute("tabindex", "0");
+                    principalSection.appendChild(pictureContent);
+                }
+    
+                principalSection.appendChild(pictureName);
+                
+                return article;
+            }
+        }
+
+
+
+    
+        return { getGallery, getLightboxPicture };
 }

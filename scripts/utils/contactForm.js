@@ -90,77 +90,78 @@ function validateForm(){
 function isValidName(name){
     const re = /^[A-zÀ-ú\-"' ]+$/;
     return re.test(String(name));
-  }
-  
-  // Fonction : validation du prénom
-  function validateFirstname(){
-      // On récupère la valeur du champ "firstname". trim() permet d'effacer les espaces avant ou après la chaîne de caractère, sans la modifier.
-      const firstnameValue = firstname.value.trim();
-  
-      //Si le prénom n'est pas saisi :
-      if(firstnameValue === "") {
-          setError(firstname, "Veuillez entrer votre prénom");
-          return false;
-      }
-      //Si le prénom contient moins de deux caractères
-      else if(firstnameValue.length <= 2){
-          setError(firstname, "Votre prénom doit comporter plus de deux caractères");
-          return false;
-      } 
-      //Si le prénom contient d'autres caractères que des lettres
-      else if(!isValidName(firstnameValue)) {
-        setError(firstname, "Votre prénom ne peut contenir que des lettres.");
-        return false;
-      }
-      // Les conditions sont remplies
-      else {
-          setSuccess(firstname);
-          return true;
-      }
-  }
-  
-  //Identique à la fonction précédente, mais les messages d'erreur sont légèrement différents
-  function validateLastname(){
-      const lastnameValue = lastname.value.trim();
-  
-      if(lastnameValue === "") {
-          setError(lastname, "Veuillez entrer votre nom");
-          return false;
-      }else if(lastnameValue.length <= 2){
-          setError(lastname, "Votre nom doit comporter plus de deux caractères");
-          return false;
-      } else if(!isValidName(lastnameValue)) {
-          setError(lastname, "Votre nom ne peut contenir que des lettres.");
-          return false;
-      } else {
-          setSuccess(lastname);
-          return true;
-      }
-  }
-  
-  
-  // Fonction de vérification du format de l'email grâce à l'utilisation d'une regex (expression régulière)
-  function isValidEmail(email){
-      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(String(email).toLowerCase());
-  }
-  
-  // Fonction de vérification de l'email. Vérifie si l'email est indiqué, et si le format est bon
-  function validateEmail(){
-      const emailValue = email.value.trim();
-      if(emailValue === ""){
-          setError(email, "Veuillez entrer votre adresse email");
-          return false;
-      } else if(!isValidEmail(emailValue)){
-          setError(email, "Votre email doit être au format : bonjour@contact.com");
-          return false;
-      } else {
-          setSuccess(email);
-          return true;
-      }
-  }
+}
 
-  function validateMessage(){
+// Fonction : validation du prénom
+function validateFirstname(){
+    // On récupère la valeur du champ "firstname". trim() permet d'effacer les espaces avant ou après  chaîne de caractère, sans la modifier.
+    const firstnameValue = firstname.value.trim();
+
+    //Si le prénom n'est pas saisi :
+    if(firstnameValue === "") {
+        setError(firstname, "Veuillez entrer votre prénom");
+        return false;
+    }
+    //Si le prénom contient moins de deux caractères
+    else if(firstnameValue.length <= 2){
+        setError(firstname, "Votre prénom doit comporter plus de deux caractères");
+        return false;
+    } 
+    //Si le prénom contient d'autres caractères que des lettres
+    else if(!isValidName(firstnameValue)) {
+      setError(firstname, "Votre prénom ne peut contenir que des lettres.");
+      return false;
+    }
+    // Les conditions sont remplies
+    else {
+        setSuccess(firstname);
+        return true;
+    }
+}
+  
+//Identique à la fonction précédente, mais les messages d'erreur sont légèrement différents
+function validateLastname(){
+    const lastnameValue = lastname.value.trim();
+
+    if(lastnameValue === "") {
+        setError(lastname, "Veuillez entrer votre nom");
+        return false;
+    }else if(lastnameValue.length <= 2){
+        setError(lastname, "Votre nom doit comporter plus de deux caractères");
+        return false;
+    } else if(!isValidName(lastnameValue)) {
+        setError(lastname, "Votre nom ne peut contenir que des lettres.");
+        return false;
+    } else {
+        setSuccess(lastname);
+        return true;
+    }
+}
+
+
+// Fonction de vérification du format de l'email grâce à l'utilisation d'une regex (expressionégulière)
+function isValidEmail(email){
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+// Fonction de vérification de l'email. Vérifie si l'email est indiqué, et si le format est bon
+function validateEmail(){
+    const emailValue = email.value.trim();
+    if(emailValue === ""){
+        setError(email, "Veuillez entrer votre adresse email");
+        return false;
+    } else if(!isValidEmail(emailValue)){
+        setError(email, "Votre email doit être au format : bonjour@contact.com");
+        return false;
+    } else {
+        setSuccess(email);
+        return true;
+    }
+}
+
+// Fonction de vérification du message. Vérifie qu'un message est écrit, et qu'il est un minimum détaillé.
+function validateMessage(){
     const messageValue = message.value.trim();
     if(messageValue.length < 1){
         setError(message, "Veuillez écrire votre message")
@@ -172,20 +173,21 @@ function isValidName(name){
     }
   }
 
-  firstname.addEventListener('keyup', ()=> {
+// Ecouteurs d'évènement sur les champs du formulaire.
+firstname.addEventListener('keyup', ()=> {
     validateFirstname();
-  });
-  lastname.addEventListener('keyup', ()=> {
+});
+lastname.addEventListener('keyup', ()=> {
     validateLastname();
-  });
-  email.addEventListener('keyup', ()=> {
+});
+email.addEventListener('keyup', ()=> {
     validateEmail();
-  });
-  message.addEventListener('keyup', ()=> {
+});
+message.addEventListener('keyup', ()=> {
     validateMessage();
-  });
+});
 
-// Ecouteur d'évènement qui prend en compte les changements sur le formulaire.
+// Ecouteur d'évènement qui vérifie les champs du formulaire formulaire.
 const submitButton = document.getElementById("submit");
 submitButton.addEventListener('click', (e) => {
     e.preventDefault();

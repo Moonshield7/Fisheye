@@ -33,6 +33,7 @@ async function getData(target) {
 // Affichage de la gallerie du photographe
 async function displayDataMedias(mediasArray){
     const gallery = document.querySelector(".gallery");
+    gallery.innerHTML = ''
 
     mediasArray.forEach((media) => {
             const mediaModel = mediaFactory(media, "gallery");
@@ -43,7 +44,8 @@ async function displayDataMedias(mediasArray){
 
 // Affichage des informations du photographe
 async function displayDataPhotographer(photographer, likeAmount) {
-    const photographerHeader = document.querySelector('.photograph-header')
+    const photographerHeader = document.querySelector('.photograph-header');
+    photographerHeader.innerHTML = ''
 
     const photographerModel = photographerFactory(photographer, "gallery", likeAmount);
     const photographerDOM = photographerModel.getPhotographHeader();
@@ -76,7 +78,7 @@ async function displayLightboxMedia(mediasArray, id) {
         let lightboxDOMChanged = lightboxModelChanged.getLightboxPicture();
         lightbox.appendChild(lightboxDOMChanged);
         before(i);
-        after(i)
+        after(i);
     }
 
     // Fonction qui permet d'afficher l'image précédente dans le tableau des médias. Si cliqué depuis la première image, renvoie à la fin du tableau.
@@ -116,25 +118,19 @@ async function displayLightboxMedia(mediasArray, id) {
     }
 }
 
-async function init(){
-    // Logo accessible via la navigation clavier
-    const logo = document.querySelector(".logo");
-    logo.focus();
-
-    // Constantes à utiliser :
-    const photographer = await getData("photographer");
-    const medias = await getData("media");
-        
-    // Nombre de likes
-    let likeAmount = 0;
-    medias.forEach((media) => {
-    likeAmount += media.likes;
+// Affichage de la lightbox lorsque l'on clique sur l'un des médias de la gallerie
+function displayLightbox(medias){
+    const clickableArray = document.querySelectorAll('.clickable');
+    clickableArray.forEach(picture => {
+        picture.addEventListener('click', () => {
+            openLightbox();
+            displayLightboxMedia(medias, picture.id)
+        })
     })
+}
 
-    // Affichage de la gallerie des médias du photographe sélectionné
-    displayDataMedias(medias, photographer);
-
-    // Ecouteur d'évènement pour l'affichage dynamique de likes
+// Ecouteur d'évènement pour l'affichage dynamique de likes
+function clickOnLike(likeAmount){
     const heartButtons = document.querySelectorAll('.gallery-like');
     heartButtons.forEach(heart => {
         let isLiked = 0;
@@ -159,20 +155,75 @@ async function init(){
         })
 
     })
+}
+
+async function init(){
+    // Logo accessible via la navigation clavier
+    const logo = document.querySelector(".logo");
+    logo.focus();
+
+    // Constantes à utiliser :
+    const photographer = await getData("photographer");
+    const medias = await getData("media");
+        
+    // Nombre de likes
+    let likeAmount = 0;
+    function getInitialLikes(){
+        medias.forEach((media) => {
+            likeAmount += media.likes;
+            })
+    }
+    getInitialLikes();
+
+    // Affichage de la gallerie des médias du photographe sélectionné
+    displayDataMedias(medias, photographer);
+    clickOnLike(likeAmount);
+
+
+
+    //Tri des images
+    const sortSelect = document.getElementById('sort-select');
+    const gallery = document.querySelector(".gallery");
+    sortSelect.addEventListener('change', ()=>{
+        if(sortSelect.value === "popularity"){
+            medias.sort((a, b) => {
+                return b.likes - a.likes;
+            })
+        }
+        else if(sortSelect.value === "date"){
+            medias.sort((a, b) => {
+                if(a.date < b.date){
+                    return 1;
+                }
+                if(a.date > b.date){
+                    return -1;
+                }
+                return 0
+            })
+        }
+        else if(sortSelect.value === "title"){
+            medias.sort((a, b) => {
+                if(a.title < b.title){
+                    return -1;
+                }
+                if(a.title > b.title){
+                    return 1;
+                }
+                return 0
+            })
+        }
+        gallery.innerHTML = ''
+        likeAmount = 0
+        getInitialLikes();
+        displayDataMedias(medias, photographer);
+        displayLightbox(medias);
+        clickOnLike(likeAmount);
+        
+    })
 
     // Affichage des données du photographe sélectionné
-    displayDataPhotographer(photographer, likeAmount);
-
-
-    
-    // Affichage de la lightbox lorsque l'on clique sur l'un des médias de la gallerie
-    const clickableArray = document.querySelectorAll('.clickable');
-    clickableArray.forEach(picture => {
-        picture.addEventListener('click', () => {
-            openLightbox();
-            displayLightboxMedia(medias, picture.id)
-        })
-    })
+    displayDataPhotographer(photographer, likeAmount);    
+    displayLightbox(medias);
 
 
 }

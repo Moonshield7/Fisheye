@@ -106,6 +106,7 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 35%;
 }
 .encart i {
     margin-left: 5px;
@@ -116,11 +117,34 @@ main {
     font-size: 24px;
     font-weight: 500;
     line-height: 30px;
+    width: 40%
+}
+
+.sort-gallery {
+    width: 990px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.sort-gallery form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sort-gallery form label {
+    margin-right: 15px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.sort-gallery form select option {
+    height: 160px;
+    
 }
 
 .gallery {
     justify-content: center;
-    align-self: center;
     margin-top: 60px;
     width: 100%;
     display: grid;
@@ -153,10 +177,13 @@ main {
 
 .picture-title{
     width: 75%;
+    display: flex;
+    align-items: flex-start;
 }
 
 .like-amount {
     width: 25%;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: flex-end;

@@ -5,6 +5,11 @@ main {
     z-index: 1;
 }
 
+header h1 {
+    position: absolute;
+    top: -5000px;
+}
+
 #contact_modal {
     display: none;
 }

@@ -39,6 +39,7 @@ function mediaFactory(data, page){
                     videoContent.setAttribute("height", "250");
                     videoContent.setAttribute("tabindex", "0");
                     videoContent.classList.add("clickable");
+                    videoContent.setAttribute("aria-label", `Vidéo : ${title}`)
                     videoContent.setAttribute("id", id);
                     videoContent.innerHTML = `<source src="${videoPathUrl}#t=0.1" type="video/mp4">`;
                     article.appendChild(videoContent);
@@ -66,12 +67,13 @@ function mediaFactory(data, page){
         if(page === "lightbox") {
             // Fonction qui permet d'afficher la lightbox
             function getLightboxPicture(){
+                article.setAttribute('id', 'current-content')
                 // Récupération de la section dans laquelle les éléments apparaîtront
                 const principalSection = document.createElement('section');
                 // Création de la flèche gauche
                 const arrowLeft = document.createElement('div');
                 arrowLeft.classList.add("arrow");
-                arrowLeft.innerText = "<";
+                arrowLeft.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
                 arrowLeft.setAttribute("id", "left");
                 arrowLeft.setAttribute("aria-label", "Image précédente");
                 arrowLeft.setAttribute("tabindex", "0");
@@ -79,7 +81,7 @@ function mediaFactory(data, page){
                 // Création de la flèche droite
                 const arrowRight = document.createElement('div');
                 arrowRight.classList.add("arrow");
-                arrowRight.innerText = ">";
+                arrowRight.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
                 arrowRight.setAttribute("id", "right");
                 arrowRight.setAttribute("aria-label", "Image suivante");
                 arrowRight.setAttribute("tabindex", "0");

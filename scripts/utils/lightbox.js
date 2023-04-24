@@ -13,7 +13,8 @@ function openLightbox(){
 
 // Fermeture de la lightbox, permettant de vider son contenu sans avoir à recharger la page
 function closeLightbox() {
-    lightbox.children[lightbox.children.length - 1].innerHTML = '';
+    const currentContent = document.getElementById('current-content');
+    lightbox.removeChild(currentContent);
     lightbox.style.display = "none";
     lightbox.setAttribute("aria-hidden", "true");
     background.style.display ="none";
@@ -53,10 +54,10 @@ async function displayLightboxMedia(mediasArray, id) {
             
         }
     }
+    
     document.addEventListener("keydown", (e) => {
         if(lightbox.style.display === "flex"){
-            if(e.key === "ArrowLeft"){
-                console.log("left")
+            if(e.key === "ArrowLeft" || (e.key === "Enter" && document.activeElement === document.getElementById("left"))){
                 j--;
                 newIndex = index+j;
                 if(newIndex >= 0){
@@ -69,7 +70,7 @@ async function displayLightboxMedia(mediasArray, id) {
                     navigateLightbox(index, newIndex, mediasArray);
                 }
             }
-            if(e.key === "ArrowRight"){
+            if(e.key === "ArrowRight" || (e.key === "Enter" && document.activeElement === document.getElementById("right"))){
                 j++;
                 newIndex = index+j;
                 if( newIndex < mediasArray.length){
@@ -81,12 +82,15 @@ async function displayLightboxMedia(mediasArray, id) {
                     console.log("Retour au premier media");
                     navigateLightbox(index, newIndex, mediasArray);
                 }
-            }         
+            }
+
         }
     })
     // Affichage de la nouvelle image grâce au nouvel index calculé
     function navigateLightbox(i, newIndex, mediasArray){
-        lightbox.children[lightbox.children.length - 1].innerHTML = '';
+        // Récupération du contenu actuellement affiché
+        const currentContent = document.getElementById('current-content');
+        lightbox.removeChild(currentContent);
         let lightboxModelChanged = mediaFactory(mediasArray[newIndex], "lightbox");
         let lightboxDOMChanged = lightboxModelChanged.getLightboxPicture();
         lightbox.appendChild(lightboxDOMChanged);

@@ -82,7 +82,22 @@ function validateForm(){
         console.log(`Nom : ${lastname.value}`);
         console.log(`Email : ${email.value}`);
         console.log(`Message : ${message.value}`);
-        form.innerHTML = "<h2 class='form-success'> Formulaire envoyé ! </h2>";
+        form.innerHTML = "";
+        const formThanks = document.createElement('h2');
+        formThanks.textContent = "Formulaire envoyé !";
+        formThanks.classList.add("form-success");
+        formThanks.setAttribute("tabindex", "0");
+        const formThanksClose = document.createElement('p');
+        formThanksClose.textContent = "Fermer la boîte de dialogue";
+        formThanksClose.classList.add("thanks_button");
+        formThanksClose.setAttribute("tabindex", "0");
+        form.appendChild(formThanks);
+        form.append(formThanksClose);
+        formThanks.focus();
+        formThanksClose.addEventListener("click", () => {
+            closeModal();
+        })
+
     }
 }
 

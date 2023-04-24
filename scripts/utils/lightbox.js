@@ -33,3 +33,100 @@ document.addEventListener('keydown', (e) => {
         closeLightbox();
     }
 })
+
+async function displayLightboxMedia(mediasArray, id) {
+    // Utilisation d'une variable pour changer d'index dans le tableau des medias
+    let j = 0;
+    let index;
+
+    // Affichage de la lightbox sur la photo cliquée grâce à son ID
+    for(let i = 0; i < mediasArray.length ; i++){
+        if(mediasArray[i].id == id || mediasArray[i].id == id){
+            index = i;
+            const lightbox = document.getElementById('lightbox_modal');
+            const lightboxModel = mediaFactory(mediasArray[i], "lightbox");
+            const lightboxDOM = lightboxModel.getLightboxPicture();
+            lightbox.appendChild(lightboxDOM);
+            // Fonction de navigation entre les images
+            before(i);
+            after(i);
+            
+        }
+    }
+    document.addEventListener("keydown", (e) => {
+        if(lightbox.style.display === "flex"){
+            if(e.key === "ArrowLeft"){
+                console.log("left")
+                j--;
+                newIndex = index+j;
+                if(newIndex >= 0){
+                    navigateLightbox(index, newIndex, mediasArray);
+                } else {
+                    index = mediasArray.length-1;
+                    j = 0
+                    newIndex = index + j;
+                    console.log("Retour au dernier media");
+                    navigateLightbox(index, newIndex, mediasArray);
+                }
+            }
+            if(e.key === "ArrowRight"){
+                j++;
+                newIndex = index+j;
+                if( newIndex < mediasArray.length){
+                    navigateLightbox(index, newIndex, mediasArray);
+                } else {
+                    index = 0;
+                    j = 0
+                    newIndex = index + j;
+                    console.log("Retour au premier media");
+                    navigateLightbox(index, newIndex, mediasArray);
+                }
+            }         
+        }
+    })
+    // Affichage de la nouvelle image grâce au nouvel index calculé
+    function navigateLightbox(i, newIndex, mediasArray){
+        lightbox.children[lightbox.children.length - 1].innerHTML = '';
+        let lightboxModelChanged = mediaFactory(mediasArray[newIndex], "lightbox");
+        let lightboxDOMChanged = lightboxModelChanged.getLightboxPicture();
+        lightbox.appendChild(lightboxDOMChanged);
+        before(i);
+        after(i);
+    }
+
+    // Fonction qui permet d'afficher l'image précédente dans le tableau des médias. Si cliqué depuis la première image, renvoie à la fin du tableau.
+    function before(i){
+        const previous = document.getElementById("left");
+        previous.addEventListener('click', ()=> {
+            j--;
+            newIndex = i+j;
+            if(newIndex >= 0){
+                navigateLightbox(i, newIndex, mediasArray);
+            } else {
+                i = mediasArray.length-1;
+                j = 0
+                newIndex = i + j;
+                console.log("Retour au dernier media");
+                navigateLightbox(i, newIndex, mediasArray);
+            }
+        })
+    }
+
+    // Fonction qui permet d'afficher l'image suivante dans le tableau des médias. Si cliqué depuis la dernière image, renvoie au début du tableau.
+    function after(i){
+        const following = document.getElementById("right");
+        following.addEventListener('click', ()=> {
+            j++;
+            newIndex = i+j;
+            if( newIndex < mediasArray.length){
+                navigateLightbox(i, newIndex, mediasArray);
+            } else {
+                i = 0;
+                j = 0
+                newIndex = i + j;
+                console.log("Retour au premier media");
+                navigateLightbox(i, newIndex, mediasArray);
+            }
+        })
+    }
+}

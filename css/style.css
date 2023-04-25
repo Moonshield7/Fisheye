@@ -1,4 +1,4 @@
-@import url("photographer.css");
+/* @import url("photographer.css"); */
 
 *{
     margin : 0;
@@ -88,4 +88,13 @@ h1 {
     width: 200px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+/* Responsive */
+
+@media screen and (max-width: 1059px){
+    .photographer_section {
+        grid-template-columns: 1fr 1fr;
+    }
+    
 }

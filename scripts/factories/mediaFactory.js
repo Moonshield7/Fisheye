@@ -49,7 +49,7 @@ function mediaFactory(data, page){
 			pictureContent.src = imagePathUrl;
 			pictureContent.classList.add('clickable');
 			pictureContent.setAttribute('id', id);
-			pictureContent.setAttribute('alt', '');
+			pictureContent.setAttribute('alt', `Image : ${title}`);
 			pictureContent.setAttribute('tabindex', 0);
 			article.appendChild(pictureContent);
 		}

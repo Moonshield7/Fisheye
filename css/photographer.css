@@ -5,6 +5,11 @@ main {
     z-index: 1;
 }
 
+*:focus{
+    outline:auto;
+    outline-color: #017ec6;
+}
+
 header h1 {
     position: absolute;
     top: -5000px;
@@ -127,17 +132,77 @@ header h1 {
 
 .sort-gallery {
     width: 990px;
+    margin-top: 50px;
     display: flex;
     align-items: flex-start;
 }
-
-.sort-gallery form {
+.sort_title {
     display: flex;
-    flex-direction: row;
+    height: 60px;
     align-items: center;
 }
 
-.sort-gallery form label {
+.sort_body {
+    position: absolute;
+    padding: 0 10px;
+    background-color: #901C1C;
+    margin-left: 10px;
+    width: 170px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 5px;
+    z-index: 3;
+}
+
+/* .sort_body:focus, .sort_body:hover{
+    height:180px;
+} */
+
+.select_button {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 130px;
+    height: 60px;
+    border: none;
+    background-color: #901C1C;
+    cursor: pointer;
+    z-index: 2;
+    text-align: start;
+}
+
+.select_button-middle::after {
+    content:"";
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    border-bottom: 2px solid white;
+    width: 150px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0);
+}
+.select_button-middle::before{
+    content:"";
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    border-top: 2px solid white;
+    width: 150px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.select_button-icon{
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+/* .sort-gallery form label {
     margin-right: 15px;
     font-size: 18px;
     font-weight: 700;
@@ -146,7 +211,7 @@ header h1 {
 .sort-gallery form select option {
     height: 160px;
     
-}
+} */
 
 .gallery {
     justify-content: center;

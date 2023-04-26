@@ -91,43 +91,49 @@ async function init(){
 
 
 	//Tri des images
-	const sortSelect = document.getElementById('sort-select');
+	const selectButtons = document.querySelectorAll('.select_button');
+	// const sortSelect = document.getElementById('sort-select');
 	const gallery = document.querySelector('.gallery');
-	sortSelect.addEventListener('change', ()=>{
-		if(sortSelect.value === 'popularity'){
-			medias.sort((a, b) => {
-				return b.likes - a.likes;
-			});
-		}
-		else if(sortSelect.value === 'date'){
-			medias.sort((a, b) => {
-				if(a.date < b.date){
-					return 1;
-				}
-				if(a.date > b.date){
-					return -1;
-				}
-				return 0;
-			});
-		}
-		else if(sortSelect.value === 'title'){
-			medias.sort((a, b) => {
-				if(a.title < b.title){
-					return -1;
-				}
-				if(a.title > b.title){
-					return 1;
-				}
-				return 0;
-			});
-		}
-		gallery.innerHTML = '';
-		likeAmount = 0;
-		getInitialLikes();
-		displayDataMedias(medias, photographer);
-		displayLightbox(medias);
-		addLike(likeAmount);
-        
+
+	selectButtons.forEach(button => {
+		button.addEventListener('click', () => {
+			console.log(button.value);
+
+			if(button.value === 'popularity'){
+				medias.sort((a, b) => {
+					return b.likes - a.likes;
+				});
+			}
+			else if(button.value === 'date'){
+				medias.sort((a, b) => {
+					if(a.date < b.date){
+						return 1;
+					}
+					if(a.date > b.date){
+						return -1;
+					}
+					return 0;
+				});
+			}
+			else if(button.value === 'title'){
+				medias.sort((a, b) => {
+					if(a.title < b.title){
+						return -1;
+					}
+					if(a.title > b.title){
+						return 1;
+					}
+					return 0;
+				});
+			}
+			gallery.innerHTML = '';
+			likeAmount = 0;
+			getInitialLikes();
+			displayDataMedias(medias, photographer);
+			displayLightbox(medias);
+			addLike(likeAmount);
+			
+		});
 	});
 
 	// Affichage des données du photographe sélectionné

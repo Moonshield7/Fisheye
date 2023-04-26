@@ -5,6 +5,11 @@ main {
     z-index: 1;
 }
 
+*:focus{
+    outline:auto;
+    outline-color: #017ec6;
+}
+
 header h1 {
     position: absolute;
     top: -5000px;

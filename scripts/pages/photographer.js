@@ -5,7 +5,7 @@ let idPhotographer = params.get('id');
 
 // Récupération des données
 async function getData(target) {
-	const r = await fetch('/data/photographers.json');
+	const r = await fetch('././data/photographers.json');
 	if(r.ok){
 		const rJSON = await r.json();
 		const photographers = rJSON.photographers;

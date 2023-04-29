@@ -131,24 +131,25 @@ header h1 {
 }
 
 .sort-gallery {
+    margin-top: 20px;
     width: 990px;
     display: flex;
     align-items: flex-start;
 }
 
-.sort-gallery form {
+#sort {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.sort-gallery form label {
+.sort-gallery label {
     margin-right: 15px;
     font-size: 18px;
     font-weight: 700;
 }
 
-.sort-gallery form select option {
+.sort-gallery select option {
     height: 160px;
     
 }
@@ -436,7 +437,7 @@ form textarea {
         position: relative;
         left:-25%
     }
-    .sort-gallery form {
+    .sort-gallery {
         align-items: center;
         justify-content: center;
     }

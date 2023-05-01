@@ -64,6 +64,12 @@ function displayLightbox(medias){
 			openLightbox();
 			displayLightboxMedia(medias, picture.id);
 		});
+		picture.addEventListener('keydown', (e) =>{
+			if(document.activeElement === picture && e.key === 'Enter'){
+				openLightbox();
+				displayLightboxMedia(medias, picture.id);
+			}
+		});
 	});
 }
 async function init(){

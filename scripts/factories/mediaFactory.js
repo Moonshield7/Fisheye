@@ -49,7 +49,7 @@ function mediaFactory(data, page){
 			pictureContent.src = imagePathUrl;
 			pictureContent.classList.add('clickable');
 			pictureContent.setAttribute('id', id);
-			pictureContent.setAttribute('alt', '');
+			pictureContent.setAttribute('alt', title);
 			pictureContent.setAttribute('tabindex', 0);
 			article.appendChild(pictureContent);
 		}
@@ -102,7 +102,7 @@ function mediaFactory(data, page){
 		if(data.image) {
 			const pictureContent = document.createElement('img');
 			pictureContent.src = imagePathUrl;
-			pictureContent.setAttribute('attr', title);
+			pictureContent.setAttribute('alt', title);
 			pictureContent.setAttribute('tabindex', '0');
 			principalSection.appendChild(pictureContent);
 		}

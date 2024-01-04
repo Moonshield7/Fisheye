@@ -1,5 +1,5 @@
 # Projet 6 - Fisheye
-## Par Fannie PRESMAN 
+## Par Moonshield 
 ### Du 11 avril 2023 au 29 avril 2023
 
 La branche **develop** est celle sur laquelle la majorité du travail a été effectué. Une fois la branche opérationnelle, elle a été merge avec la branche main.
